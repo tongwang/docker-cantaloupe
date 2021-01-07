@@ -2,6 +2,8 @@ FROM debian:buster
 
 ENV CANTALOUPE_VERSION=4.1.7
 
+ENV TEMP_PATHNAME=/var/tmp/cantaloupe
+
 EXPOSE 8182
 
 VOLUME /imageroot
@@ -20,9 +22,10 @@ RUN curl --silent --fail -OL https://github.com/medusa-project/cantaloupe/releas
     && unzip Cantaloupe-$CANTALOUPE_VERSION.zip \
     && ln -s cantaloupe-$CANTALOUPE_VERSION cantaloupe \
     && rm Cantaloupe-$CANTALOUPE_VERSION.zip \
-    && mkdir -p /var/log/cantaloupe /var/cache/cantaloupe \
-    && chown -R cantaloupe /cantaloupe /var/log/cantaloupe /var/cache/cantaloupe \
+    && mkdir -p /var/log/cantaloupe /var/cache/cantaloupe /var/tmp/cantaloupe \
+    && chown -R cantaloupe /cantaloupe /var/log/cantaloupe /var/cache/cantaloupe /var/tmp/cantaloupe \
     && cp -rs /cantaloupe/deps/Linux-x86-64/* /usr/
 
 USER cantaloupe
-CMD ["sh", "-c", "java -Dcantaloupe.config=/cantaloupe/cantaloupe.properties.sample -jar /cantaloupe/cantaloupe-$CANTALOUPE_VERSION.war"]
+
+CMD ["sh", "-c", "java $JVM_OPTS -Dcantaloupe.config=/cantaloupe/cantaloupe.properties.sample -jar /cantaloupe/cantaloupe-$CANTALOUPE_VERSION.war"]

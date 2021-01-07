@@ -17,3 +17,8 @@ This Docker image uses the bundled sample configuration file, named `cantaloupe.
 
     docker run -d -p 8182:8182 -v /path/to/images:/home/images --env FILESYSTEMSOURCE_BASICLOOKUPSTRATEGY_PATH_PREFIX=/home/images/ tongwang/cantaloupe
 
+## JVM options
+
+Use environment variable `JVM_OPTS` to set JVM options. For example, to set the maximum heap size to 50% of the total memory available to the container:
+
+	docker run -d -p 8182:8182 -v /path/to/images:/home/myself/images --env JVM_OPTS=-XX:MaxRAMPercentage=50 tongwang/cantaloupe
