@@ -1,6 +1,6 @@
 FROM debian:buster
 
-ENV CANTALOUPE_VERSION=4.1.7
+ENV CANTALOUPE_VERSION=5.0.2
 
 ENV TEMP_PATHNAME=/var/tmp/cantaloupe
 
@@ -28,4 +28,4 @@ RUN curl --silent --fail -OL https://github.com/medusa-project/cantaloupe/releas
 
 USER cantaloupe
 
-CMD ["sh", "-c", "java $JVM_OPTS -Dcantaloupe.config=/cantaloupe/cantaloupe.properties.sample -jar /cantaloupe/cantaloupe-$CANTALOUPE_VERSION.war"]
+CMD ["sh", "-c", "java $JVM_OPTS -Dcantaloupe.config=/cantaloupe/cantaloupe.properties.sample -jar /cantaloupe/cantaloupe-$CANTALOUPE_VERSION.jar"]
