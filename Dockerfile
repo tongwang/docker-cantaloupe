@@ -11,8 +11,7 @@ VOLUME /imageroot
 # Update packages and install tools
 RUN apt-get update -qy && apt-get dist-upgrade -qy && \
     apt-get install -qy --no-install-recommends curl imagemagick \
-    libopenjp2-tools ffmpeg unzip default-jre-headless && \
-    apt-get -qqy autoremove && apt-get -qqy autoclean
+    libopenjp2-tools ffmpeg unzip default-jre-headless
 
 # Run non privileged
 RUN adduser --system cantaloupe
@@ -42,6 +41,7 @@ RUN mkdir -p /opt/libjpeg-turbo/lib && \
 
 # clean up libjpeg-turbo build artifacts
 RUN apt-get remove -qy cmake nasm default-jdk && \
+    apt-get -qqy autoremove && apt-get -qqy autoclean && \
     rm -rf /tmp/libjpeg-turbo-2.0.2-build && \
     rm -rf /libjpeg-turbo-2.0.2
 
